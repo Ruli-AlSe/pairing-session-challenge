@@ -13,7 +13,10 @@ Things you may want to cover:
 
 * Database creation
 
-* Database initialization
+* Database initialization 
+
+To seed the DB you should run the following command  
+`SEED=true bundle exec rake db:seed`
 
 * How to run the test suite
 
