@@ -4,6 +4,7 @@ class CreateEnrollments < ActiveRecord::Migration[6.1]
       t.references :student, null: false, foreign_key: true
       t.references :course, null: false, foreign_key: true
       t.integer :year, null: false
+      t.boolean :is_currently_enrolled, default: false, null: false
 
       t.timestamps
     end

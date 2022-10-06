@@ -1,38 +1,36 @@
 class Api::V1::CoursesController < ApplicationController
-    def index
-        @courses = Course.all
-        render json: @courses
-    end
+  before_action :set_course, only: [:update, :destroy]
 
-    def create
-        @course = Course.create!(course_params)
-        if(@course) 
-            render json: @course
-        else
-            render json: @course.error
-        end
-    end
+  def index
+    @courses = Course.all
+  end
 
-    def update
-        @course = Course.find(params[:id])
-        if(@course)
-            @course.name = params[:name] 
-            @course.save!
-            render json: @course
-        else
-            render json: {message: "Course not found"}
-        end
+  def create
+    @course = Course.new(course_params)
+    unless @course.save
+      render json: { message: "Course was not created" }, status: 500 
     end
+  end
 
-    def destroy
-        @course = Course.find(params[:id])
-        @course&.destroy
-        render json: {message: "Course was removed"}
+  def update
+    unless @course.update(course_params)
+      render json: { message: "Course was not updated" }, status: 500 
     end
+  end
 
-    private
-
-    def course_params
-        params.permit(:name)
+  def destroy
+    unless @course.destroy
+      render json: { message: "Course was not removed" }, status: 500 
     end
+  end
+
+  private
+
+  def set_course
+    @course = Course.find(params[:id])
+  end
+
+  def course_params
+    params.permit(:name, :teacher_name)
+  end
 end

@@ -1,14 +1,13 @@
 class CreateCourseGrades < ActiveRecord::Migration[6.1]
   def change
     create_table :course_grades do |t|
-      t.references :student, null: false, foreign_key: true
       t.references :course, null: false, foreign_key: true
-      t.float :q1
-      t.float :q2
-      t.float :q3
-      t.float :q4
-      t.float :average
-      t.string :status
+      t.float :q1, default: 0
+      t.float :q2, default: 0
+      t.float :q3, default: 0
+      t.float :q4, default: 0
+      t.float :average, default: 0
+      t.string :status, default: 'fail'
 
       t.timestamps
     end
