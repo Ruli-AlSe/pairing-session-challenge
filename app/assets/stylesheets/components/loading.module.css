@@ -1,0 +1,18 @@
+.loading_background {
+  width: 100vw;
+  height: 100vh;
+  background-color: #74717172;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading_background img {
+  width: 300px;
+  height: 300px;
+}
+
+.loading_background h3 {
+  color: #0d6efd;
+}

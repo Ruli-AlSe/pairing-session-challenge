@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  max-height: 80px;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 2px 3px #eee;
+}
+
+.header a {
+  margin: 25px 20px;
+  display: flex;
+  text-decoration: none;
+}
+
+.header img {
+  border-radius: 30%;
+  width: 4rem;
+  margin-right: 10px;
+  height: 4rem;
+}
+
+.header h2 {
+  margin: 10px 0;
+}
+
+.links_container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 20%;
+}

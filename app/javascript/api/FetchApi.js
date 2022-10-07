@@ -1,17 +1,16 @@
-const fetchApi = { 
-    get: async (apiUrl, setData, controller) => {
-       try {
-       const response = await fetch(apiUrl, {
-           signal: controller.signal,
-       });
-       const data = await response.json();
+export async function fetchApi(apiUrl, setData, controller) {
+  try {
+    setData({ data: [], isLoading: true });
 
-       setData(data);
-       } catch (error) {
-       setData([]);
-       console.error(err);
-       }
-   }
+    const response = await fetch(apiUrl, {
+      signal: controller.signal,
+    });
+    const data = await response.json();
+
+    console.log("***** data", data);
+    setData({ data, isLoading: false });
+  } catch (error) {
+    setData({ data: [], isLoading: false });
+    console.error(err);
+  }
 }
-
-export default fetchApi;

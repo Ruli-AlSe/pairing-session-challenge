@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       put 'students/update/:id', to: 'students#update'
       delete 'students/destroy/:id', to: 'students#destroy'
       post 'students/enroll/:id/:course_id', to: 'students#enroll_to'
+      post 'students/enrollments/:id', to: 'students#enrollments'
 
       # course grades
       get 'course_grades/index', to: 'course_grades#index'
