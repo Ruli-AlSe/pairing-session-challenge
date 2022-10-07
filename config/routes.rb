@@ -9,11 +9,12 @@ Rails.application.routes.draw do
 
       # students
       get 'students/index', to: 'students#index'
+      get 'students/show/:id', to: 'students#show'
       post 'students/create', to: 'students#create'
       put 'students/update/:id', to: 'students#update'
       delete 'students/destroy/:id', to: 'students#destroy'
       post 'students/enroll/:id/:course_id', to: 'students#enroll_to'
-      post 'students/enrollments/:id', to: 'students#enrollments'
+      get 'students/enrollments/:id', to: 'students#enrollments'
 
       # course grades
       get 'course_grades/index', to: 'course_grades#index'

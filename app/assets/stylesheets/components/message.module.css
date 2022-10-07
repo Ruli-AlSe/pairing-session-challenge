@@ -1,0 +1,9 @@
+.box {
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+}
+
+.box h3 {
+  text-align: center;
+}

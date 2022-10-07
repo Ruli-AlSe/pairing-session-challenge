@@ -8,12 +8,12 @@ export default function Table({ title, info, model }) {
     (key) => !notAllowed.includes(key)
   );
   const colNamesFormated = validKeys.map((key, idx) => (
-    <th key={idx}>{key.replace("_", " ").toUpperCase()}</th>
+    <th key={`${key} ${idx}]`}>{key.replaceAll("_", " ").toUpperCase()}</th>
   ));
   const dataTable = info.map((elem) => (
     <tr key={elem.id}>
-      {validKeys.map((key) => (
-        <td>{elem[key]}</td>
+      {validKeys.map((keyname) => (
+        <td key={keyname}>{elem[keyname]}</td>
       ))}
       <td>
         <ul>

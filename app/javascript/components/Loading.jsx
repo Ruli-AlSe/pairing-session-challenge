@@ -7,6 +7,8 @@ export default function Loading() {
       <img
         src="https://raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator.gif"
         alt="loading image"
+        width="70px"
+        height="70px"
       />
       <h3>Loading...</h3>
     </div>
