@@ -15,7 +15,7 @@ module Api
         if @course.save
           render json: @course.as_json.merge!({ message: 'Course created successfully' }), status: 200
         else
-          render json: { message: 'Course was not created' }, status: 500
+          render json: { message: 'Course was not created' }, status: 400
         end
       end
 
@@ -23,7 +23,7 @@ module Api
         if @course.update(course_params)
           render json: @course.as_json.merge!({ message: 'Course updated successfully' }), status: 200
         else
-          render json: { message: 'Course was not updated' }, status: 500
+          render json: { message: 'Course was not updated' }, status: 400
         end
       end
 
@@ -31,7 +31,7 @@ module Api
         if @course.destroy
           render json: { message: 'Course was removed successfully' }, status: 200
         else
-          render json: { message: 'Course was not removed' }, status: 500
+          render json: { message: 'Course was not removed' }, status: 400
         end
       end
 

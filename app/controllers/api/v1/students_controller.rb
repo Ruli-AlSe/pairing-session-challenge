@@ -15,7 +15,7 @@ module Api
         if @student.save
           render json: @student.as_json.merge!({ message: 'Student created successfully' }), status: 200
         else
-          render json: { message: 'Student was not created' }, status: 500
+          render json: { message: 'Student was not created' }, status: 400
         end
       end
 
@@ -23,15 +23,15 @@ module Api
         if @student.update(student_params)
           render json: @student.as_json.merge!({ message: 'Student updated successfully' }), status: 200
         else
-          render json: { message: 'Student was not updated' }, status: 500
+          render json: { message: 'Student was not updated' }, status: 400
         end
       end
 
       def show
         if @student
-          render json: @student, status: 200 
+          render json: @student, status: 200
         else
-          render json: { message: 'Student not found' }, status: 500 
+          render json: { message: 'Student not found' }, status: 400
         end
       end
 
@@ -39,7 +39,7 @@ module Api
         if @student.destroy
           render json: { message: 'Student removed successfully' }, status: 200
         else
-          render json: { message: 'Student was not removed' }, status: 500
+          render json: { message: 'Student was not removed' }, status: 400
         end
       end
 
@@ -50,7 +50,7 @@ module Api
         if @student.save
           render json: { message: "Student enrolled to #{enrolled_course(@student)}" }, status: 200
         else
-          render json: { message: 'Unsuccessful enrollment' }, status: 500
+          render json: { message: 'Unsuccessful enrollment' }, status: 400
         end
       end
 
@@ -58,7 +58,7 @@ module Api
         if @student
           render json: @student.get_courses, status: 200
         else
-          render json: { message: 'Student not found' }, status: 500
+          render json: { message: 'Student not found' }, status: 400
         end
       end
 

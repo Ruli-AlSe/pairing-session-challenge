@@ -11,7 +11,7 @@ export default function Table({ title, info, model }) {
     <th key={`${key} ${idx}]`}>{key.replaceAll("_", " ").toUpperCase()}</th>
   ));
   const dataTable = info.map((elem) => (
-    <tr key={elem.id}>
+    <tr key={`${model} ${elem.id}`}>
       {validKeys.map((keyname) => (
         <td key={keyname}>{elem[keyname]}</td>
       ))}
@@ -51,9 +51,12 @@ export default function Table({ title, info, model }) {
     <div className={styles.table_container}>
       <div className={styles.header_ribbon}>
         <h3>{title}</h3>
-        <button className={`${styles.button} ${styles.button_main}`}>
+        <Link
+          to={`/create-${model}`}
+          className={`${styles.button} ${styles.button_main}`}
+        >
           {`New ${model.charAt(0).toUpperCase() + model.slice(1)}`}
-        </button>
+        </Link>
       </div>
       <table className={`${styles.table_white} ${styles.striped}`}>
         <thead>

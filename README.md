@@ -1,27 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Ruby and Rails version
 
-Things you may want to cover:
+- ruby 3.0.4p208
+- Rails 6.1.7
 
-* Ruby version
+### System dependencies
 
-* System dependencies
+- postgresql
+- node v16.17.1
+- npm 8.19.2
+- yarn 1.22.19
 
-* Configuration
+### Database creation
 
-* Database creation
+#### - Database initialization
 
-* Database initialization 
+- `rails db:create`
+- `rails db:migrate`
+- `SEED=true bundle exec rake db:seed`
 
-To seed the DB you should run the following command  
-`SEED=true bundle exec rake db:seed`
+### How to run the test suite
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`rspec spec/`

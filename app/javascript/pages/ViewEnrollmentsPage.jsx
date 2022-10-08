@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFetch } from "../api/hooks/useFetch";
+import { useGetFetch } from "../api/hooks/useGetFetch";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
@@ -8,8 +8,10 @@ import styles from "../../assets/stylesheets/pages/view-enrollments.module.css";
 
 export default function ViewEnrollments() {
   let { id } = useParams();
-  const enrollments = useFetch(`/api/v1/students/enrollments/${id}`);
-  const student = useFetch(`/api/v1/students/show/${id}`);
+  const enrollments = useGetFetch({
+    url: `/api/v1/students/enrollments/${id}`,
+  });
+  const student = useGetFetch({ url: `/api/v1/students/show/${id}` });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function ViewEnrollments() {
   return (
     <>
       {isLoading && <Loading />}
-      {!isLoading && (
+      {!isLoading && student.response.ok && (
         <div className="enrollments_container">
           <div className={`row ${styles.flex_row}`}>
             <div className={styles.student_info}>
@@ -45,9 +47,12 @@ export default function ViewEnrollments() {
               model="course"
             />
           ) : (
-            <Message />
+            <Message success={false} content={"No courses enrolled yet"} />
           )}
         </div>
+      )}
+      {!isLoading && !student.response.ok && (
+        <Message success={student.response.ok} content={student.data.message} />
       )}
     </>
   );

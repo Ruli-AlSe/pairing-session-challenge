@@ -12,8 +12,9 @@ class Student < ApplicationRecord
   end
 
   def get_courses
-    self.enrollments.map do |elem|
-      {id: elem.course_id, course_name: elem.course.name, teacher_name: elem.course.teacher_name, is_active: elem.is_currently_enrolled}
+    enrollments.map do |elem|
+      { id: elem.course_id, course_name: elem.course.name, teacher_name: elem.course.teacher_name,
+        is_active: elem.is_currently_enrolled }
     end
   end
 end

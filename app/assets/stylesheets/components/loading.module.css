@@ -9,8 +9,9 @@
 }
 
 .loading_background img {
-  width: 300px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 45px;
 }
 
 .loading_background h3 {

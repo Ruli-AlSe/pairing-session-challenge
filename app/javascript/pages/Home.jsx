@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useFetch } from "../api/hooks/useFetch";
+import { useGetFetch } from "../api/hooks/useGetFetch";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
 
 export default function Home() {
-  const students = useFetch("/api/v1/students/index");
-  const courses = useFetch("/api/v1/courses/index");
+  const students = useGetFetch({ url: "/api/v1/students/index" });
+  const courses = useGetFetch({ url: "/api/v1/courses/index" });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -7,3 +7,11 @@
 .box h3 {
   text-align: center;
 }
+
+.error h3 {
+  color: #a82734;
+}
+
+.success h3 {
+  color: #2b9b2b;
+}
