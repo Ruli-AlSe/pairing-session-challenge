@@ -55,7 +55,17 @@ export default function Table({
                 className={`${styles.button_small} ${styles.button_secondary}`}
                 to={`/view-${model}-courses/${elem.id}`}
               >
-                View enrollments
+                View courses
+              </Link>
+            </li>
+          )}
+          {model == "course" && (
+            <li>
+              <Link
+                className={`${styles.button_small} ${styles.button_secondary}`}
+                to={`/view-${model}-students/${elem.id}`}
+              >
+                View students
               </Link>
             </li>
           )}

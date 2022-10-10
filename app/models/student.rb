@@ -12,10 +12,9 @@ class Student < ApplicationRecord
     "#{name} #{surname}"
   end
 
-  def get_courses
+  def courses
     enrollments.map do |elem|
-      { id: elem.course_id, course_name: elem.course.name, teacher_name: elem.course.teacher_name,
-        is_active: elem.is_currently_enrolled }
+      { id: elem.course_id, course_name: elem.course.name, teacher_name: elem.course.teacher_name }
     end
   end
 end

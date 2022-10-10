@@ -12,7 +12,14 @@ export default function RoutesSelector() {
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/view-student-courses/:id" element={<ViewEnrollments />} />
+        <Route
+          path="/view-student-courses/:id"
+          element={<ViewEnrollments model={"student"} />}
+        />
+        <Route
+          path="/view-course-students/:id"
+          element={<ViewEnrollments model={"course"} />}
+        />
         <Route path="/create-student" element={<StudentActions />} />
         <Route path="/edit-student/:id" element={<StudentActions />} />
         <Route path="/create-course" element={<CourseActions />} />

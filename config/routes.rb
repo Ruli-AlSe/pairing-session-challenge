@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'courses/show/:id', to: 'courses#show'
       put 'courses/update/:id', to: 'courses#update'
       delete 'courses/destroy/:id', to: 'courses#destroy'
+      get 'courses/enrollments/:id', to: 'courses#enrollments'
 
       # students
       get 'students/index', to: 'students#index'

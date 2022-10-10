@@ -5,6 +5,7 @@ import { useGetFetch } from "../utils/hooks/useGetFetch";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
 import styles from "../../assets/stylesheets/pages/student-actions.module.css";
+import { COURSE_UPDATE, COURSE_SHOW, COURSE_CREATE } from "../utils/Constants";
 
 export default function CourseActions() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function CourseActions() {
   const [message, setMessage] = useState({ success: false, content: "" });
   const [isLoading, setIsLoading] = useState(true);
   const course = id
-    ? useGetFetch({ url: `/api/v1/courses/show/${id}` })
+    ? useGetFetch({ url: COURSE_SHOW + id })
     : {
         data: { name: "", teacher_name: "" },
         isLoading: false,
@@ -39,9 +40,7 @@ export default function CourseActions() {
 
   function onSubmit(event) {
     event.preventDefault();
-    const apiUrl = id
-      ? `/api/v1/courses/update/${id}`
-      : "/api/v1/courses/create";
+    const apiUrl = id ? COURSE_UPDATE + id : COURSE_CREATE;
     const controller = new AbortController();
     const postParams = {
       method: id ? "PUT" : "POST",

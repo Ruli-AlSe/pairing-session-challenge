@@ -56,7 +56,7 @@ module Api
 
       def enrollments
         if @student
-          render json: @student.get_courses, status: 200
+          render json: @student.courses, status: 200
         else
           render json: { message: 'Student not found' }, status: 400
         end

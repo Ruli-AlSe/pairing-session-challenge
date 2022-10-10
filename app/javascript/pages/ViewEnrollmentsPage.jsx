@@ -4,55 +4,59 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import Table from "../components/Table";
 import Message from "../components/Message";
-import styles from "../../assets/stylesheets/pages/view-enrollments.module.css";
+import StudentInfo from "../components/StudentInfo";
+import CourseInfo from "../components/CourseInfo";
+import {
+  STUDENT_ENROLLMENTS,
+  STUDENT_SHOW,
+  COURSE_ENROLLMENTS,
+  COURSE_SHOW,
+} from "../utils/Constants";
 
-export default function ViewEnrollments() {
+export default function ViewEnrollments({ model }) {
   let { id } = useParams();
-  const enrollments = useGetFetch({
-    url: `/api/v1/students/enrollments/${id}`,
-  });
-  const student = useGetFetch({ url: `/api/v1/students/show/${id}` });
+  const enrollmentsUrl =
+    model == "student" ? STUDENT_ENROLLMENTS + id : COURSE_ENROLLMENTS + id;
+  const enrollments = useGetFetch({ url: enrollmentsUrl });
+  const modelInfoUrl =
+    model == "student" ? STUDENT_SHOW + id : COURSE_SHOW + id;
+  const information = useGetFetch({ url: modelInfoUrl });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!enrollments.isLoading && !student.isLoading) {
+    if (!enrollments.isLoading && !information.isLoading) {
       setIsLoading(false);
     }
-  }, [enrollments.isLoading, student.isLoading]);
+  }, [enrollments.isLoading, information.isLoading]);
 
   return (
     <>
       {isLoading && <Loading />}
-      {!isLoading && student.response.ok && (
+      {!isLoading && information.response.ok && (
         <div className="enrollments_container">
-          <div className={`row ${styles.flex_row}`}>
-            <div className={styles.student_info}>
-              <h3>
-                <span>Name: </span>
-                {`${student.data.name} ${student.data.surname}`}
-              </h3>
-              <h3>
-                <span>Location: </span>
-                {student.data.country}
-              </h3>
-            </div>
-            <button className={`${styles.button} ${styles.button_main}`}>
-              Enroll new course
-            </button>
-          </div>
+          {model == "student" ? (
+            <StudentInfo data={information.data} />
+          ) : (
+            <CourseInfo data={information.data} />
+          )}
           {enrollments.data.length > 0 ? (
             <Table
               title="Courses enrolled"
               info={enrollments.data}
               model="course"
             />
-          ) : (
+          ) : model == "student" ? (
             <Message success={false} content={"No courses enrolled yet"} />
+          ) : (
+            <Message success={false} content={"No students enrolled yet"} />
           )}
         </div>
       )}
-      {!isLoading && !student.response.ok && (
-        <Message success={student.response.ok} content={student.data.message} />
+      {!isLoading && !information.response.ok && (
+        <Message
+          success={information.response.ok}
+          content={information.data.message}
+        />
       )}
     </>
   );

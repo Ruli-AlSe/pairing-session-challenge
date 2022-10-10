@@ -5,6 +5,11 @@ import { useGetFetch } from "../utils/hooks/useGetFetch";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
 import styles from "../../assets/stylesheets/pages/student-actions.module.css";
+import {
+  STUDENT_CREATE,
+  STUDENT_SHOW,
+  STUDENT_UPDATE,
+} from "../utils/Constants";
 
 export default function StudentActions() {
   const navigate = useNavigate();
@@ -14,7 +19,7 @@ export default function StudentActions() {
   const [message, setMessage] = useState({ success: false, content: "" });
   const [isLoading, setIsLoading] = useState(true);
   const student = id
-    ? useGetFetch({ url: `/api/v1/students/show/${id}` })
+    ? useGetFetch({ url: STUDENT_SHOW + id })
     : {
         data: { name: "", surname: "", country: "" },
         isLoading: false,
@@ -40,9 +45,7 @@ export default function StudentActions() {
 
   function onSubmit(event) {
     event.preventDefault();
-    const apiUrl = id
-      ? `/api/v1/students/update/${id}`
-      : "/api/v1/students/create";
+    const apiUrl = id ? STUDENT_UPDATE + id : STUDENT_CREATE;
     const controller = new AbortController();
     const postParams = {
       method: id ? "PUT" : "POST",

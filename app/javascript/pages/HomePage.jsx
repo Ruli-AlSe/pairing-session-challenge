@@ -6,12 +6,17 @@ import Loading from "../components/Loading";
 import Table from "../components/Table";
 import Message from "../components/Message";
 import NotificationPopup from "../components/NotificationPopup";
-import { func } from "prop-types";
+import {
+  COURSES_INDEX,
+  COURSE_DESTROY,
+  STUDENTS_INDEX,
+  STUDENT_DESTROY,
+} from "../utils/Constants";
 
 export default function Home() {
-  const students = useGetFetch({ url: "/api/v1/students/index" });
+  const students = useGetFetch({ url: STUDENTS_INDEX });
   const [studentsData, setStudentsData] = useState(students);
-  const courses = useGetFetch({ url: "/api/v1/courses/index" });
+  const courses = useGetFetch({ url: COURSES_INDEX });
   const [isLoading, setIsLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
@@ -30,8 +35,8 @@ export default function Home() {
 
     setIsLoading(true);
     const apiUrl = {
-      student: `/api/v1/students/destroy/${id}`,
-      course: `/api/v1/courses/destroy/${id}`,
+      student: STUDENT_DESTROY + id,
+      course: COURSE_DESTROY + id,
     };
     const controller = new AbortController();
     const deleteParams = {

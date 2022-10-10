@@ -3,7 +3,7 @@
 module Api
   module V1
     class CoursesController < ApplicationController
-      before_action :set_course, only: %i[show update destroy]
+      before_action :set_course, only: %i[show update destroy enrollments]
 
       def index
         @courses = Course.all
@@ -40,6 +40,14 @@ module Api
           render json: { message: 'Course was removed successfully' }, status: 200
         else
           render json: { message: 'Course was not removed' }, status: 400
+        end
+      end
+
+      def enrollments
+        if @course
+          render json: @course.students, status: 200
+        else
+          render json: { message: 'Course not found' }, status: 400
         end
       end
 

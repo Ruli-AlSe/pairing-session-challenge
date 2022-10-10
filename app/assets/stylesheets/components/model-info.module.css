@@ -16,8 +16,20 @@
   border: 1px solid #0d6efd;
 }
 
+.button_info {
+  color: #fff;
+  padding: 5px 15px;
+  background-color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
 .button_main:hover {
   background-color: #0a58ca;
+  color: #fff;
+}
+
+.button_info:hover {
+  background-color: #888f94;
   color: #fff;
 }
 
@@ -26,14 +38,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
-.student_info {
+.model_info {
   width: 50%;
 }
-.student_info h3 {
+.model_info h3 {
   font-weight: 100;
 }
-.student_info h3 span {
+.model_info h3 span {
   font-weight: 500;
 }
