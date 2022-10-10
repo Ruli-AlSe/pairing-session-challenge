@@ -2,7 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../../assets/stylesheets/components/table.module.css";
 
-export default function Table({ title, info, model }) {
+export default function Table({
+  title,
+  info,
+  model,
+  setRowToRemove,
+  setShowPopup,
+  disableScroll,
+}) {
   const notAllowed = ["id", "created_at", "updated_at"];
   const validKeys = Object.keys(info[0]).filter(
     (key) => !notAllowed.includes(key)
@@ -10,6 +17,14 @@ export default function Table({ title, info, model }) {
   const colNamesFormated = validKeys.map((key, idx) => (
     <th key={`${key} ${idx}]`}>{key.replaceAll("_", " ").toUpperCase()}</th>
   ));
+
+  function handleClick(event, id, model) {
+    event.preventDefault();
+    window.addEventListener("scroll", disableScroll);
+    setRowToRemove({ id, model });
+    setShowPopup(true);
+  }
+
   const dataTable = info.map((elem) => (
     <tr key={`${model} ${elem.id}`}>
       {validKeys.map((keyname) => (
@@ -28,6 +43,7 @@ export default function Table({ title, info, model }) {
           <li>
             <button
               className={`${styles.button_small} ${styles.button_danger}`}
+              onClick={(event) => handleClick(event, elem.id, model)}
             >
               {`Remove ${model}`}
             </button>

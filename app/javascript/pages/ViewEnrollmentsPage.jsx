@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGetFetch } from "../api/hooks/useGetFetch";
+import { useGetFetch } from "../utils/hooks/useGetFetch";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import Table from "../components/Table";

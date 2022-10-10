@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchApi } from "../api/fetchApi";
+import { fetchApi } from "../utils/fetchApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useGetFetch } from "../utils/hooks/useGetFetch";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
 import styles from "../../assets/stylesheets/pages/student-actions.module.css";
@@ -9,28 +10,42 @@ export default function StudentActions() {
   const navigate = useNavigate();
   const { id } = useParams();
   const title = id ? "Edit student" : "Create new student";
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState({ success: false, content: "" });
+  const [isLoading, setIsLoading] = useState(true);
+  const student = id
+    ? useGetFetch({ url: `/api/v1/students/show/${id}` })
+    : {
+        data: { name: "", surname: "", country: "" },
+        isLoading: false,
+        response: {},
+      };
   const [result, setResult] = useState({
     data: [],
     isLoading: false,
     response: {},
   });
-  const [showMessage, setShowMessage] = useState(false);
-  const [message, setMessage] = useState({ success: false, content: "" });
-  const [studentData, setStudentData] = useState({
+  const [newStudentData, setNewStudentData] = useState({
     name: "",
     surname: "",
     country: "",
   });
 
   function onChange(event) {
-    setStudentData({ ...studentData, [event.target.name]: event.target.value });
+    setNewStudentData({
+      ...newStudentData,
+      [event.target.name]: event.target.value,
+    });
   }
 
   function onSubmit(event) {
     event.preventDefault();
+    const apiUrl = id
+      ? `/api/v1/students/update/${id}`
+      : "/api/v1/students/create";
     const controller = new AbortController();
     const postParams = {
-      method: "POST",
+      method: id ? "PUT" : "POST",
       mode: "cors",
       credentials: "same-origin",
       headers: {
@@ -38,34 +53,40 @@ export default function StudentActions() {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify(studentData),
+      body: JSON.stringify(newStudentData),
       signal: controller.signal,
     };
 
     if (
-      studentData.name.length == 0 ||
-      studentData.surname.length == 0 ||
-      studentData.country.length == 0
+      newStudentData.name.length == 0 ||
+      newStudentData.surname.length == 0 ||
+      newStudentData.country.length == 0
     )
       return;
 
-    fetchApi("/api/v1/students/create", setResult, postParams);
+    fetchApi(apiUrl, setResult, postParams);
     setShowMessage(true);
   }
 
   useEffect(() => {
     setMessage({ success: result.response.ok, content: result.data.message });
+
+    if (!student.isLoading && !result.isLoading) {
+      setNewStudentData(student.data);
+      setIsLoading(false);
+    }
+
     if (result.response.status == 200) {
       setTimeout(() => {
         navigate("/");
       }, 2000);
     }
-  }, [result.isLoading, showMessage]);
+  }, [result.isLoading, student.isLoading]);
 
   return (
     <>
-      {result.isLoading && <Loading />}
-      {!result.isLoading && (
+      {isLoading && <Loading />}
+      {!isLoading && (
         <div className={styles.form_container}>
           <h1 className={styles.title}>{title}</h1>
           <form onSubmit={onSubmit}>
@@ -78,6 +99,7 @@ export default function StudentActions() {
                 className={styles.input}
                 required
                 onChange={onChange}
+                value={newStudentData.name}
               />
             </div>
             <div className={styles.group}>
@@ -89,6 +111,7 @@ export default function StudentActions() {
                 className={styles.input}
                 required
                 onChange={onChange}
+                value={newStudentData.surname}
               />
             </div>
             <div className={styles.group}>
@@ -99,6 +122,7 @@ export default function StudentActions() {
                 name="country"
                 required
                 onChange={onChange}
+                value={newStudentData.country}
               />
             </div>
             <div className={styles.buttons_group}>
