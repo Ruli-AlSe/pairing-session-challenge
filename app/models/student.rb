@@ -2,6 +2,7 @@
 
 class Student < ApplicationRecord
   has_many :enrollments
+  has_many :course_grades
   has_many :courses, through: :enrollments
 
   validates :name, :surname, :country, presence: true, length: { minimum: 2 },

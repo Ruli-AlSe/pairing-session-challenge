@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 2022_10_05_045415) do
   create_table "enrollments", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "course_id", null: false
-    t.integer "year", null: false
-    t.boolean "is_currently_enrolled", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_enrollments_on_course_id"
