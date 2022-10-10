@@ -10,6 +10,7 @@ import { func } from "prop-types";
 
 export default function Home() {
   const students = useGetFetch({ url: "/api/v1/students/index" });
+  const [studentsData, setStudentsData] = useState(students);
   const courses = useGetFetch({ url: "/api/v1/courses/index" });
   const [isLoading, setIsLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
@@ -46,26 +47,25 @@ export default function Home() {
     };
 
     fetchApi(apiUrl[model], setResult, deleteParams);
-    window.scrollTo(0, 0);
+
     setShowPopup(false);
     setShowMessage(true);
-    window.removeEventListener("scroll", disableScroll);
-    navigate("/");
-  }
-
-  function handleAcceptClick(event) {
-    event.preventDefault();
-    onDelete(rowToRemove);
   }
 
   function disableScroll() {
     window.scrollTo(0, 0);
   }
 
-  function handleCancelClick(event) {
+  function handleAcceptClick(event) {
     event.preventDefault();
     window.removeEventListener("scroll", disableScroll);
+    onDelete(rowToRemove);
+  }
+
+  function handleCancelClick(event) {
+    event.preventDefault();
     setShowPopup(false);
+    window.location.reload(false);
   }
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function Home() {
     if (result.response.status == 200) {
       setTimeout(() => {
         setShowMessage(false);
-        navigate("/");
+        window.location.reload(false);
       }, 2000);
     }
   }, [students.isLoading, courses.isLoading, result.isLoading]);

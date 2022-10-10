@@ -4,6 +4,7 @@ import Home from "../pages/HomePage";
 import HeaderComponent from "../components/Header";
 import ViewEnrollments from "../pages/ViewEnrollmentsPage";
 import StudentActions from "../pages/StudentActionsPage";
+import CourseActions from "../pages/CourseActionsPage";
 
 export default function RoutesSelector() {
   return (
@@ -14,6 +15,8 @@ export default function RoutesSelector() {
         <Route path="/view-student-courses/:id" element={<ViewEnrollments />} />
         <Route path="/create-student" element={<StudentActions />} />
         <Route path="/edit-student/:id" element={<StudentActions />} />
+        <Route path="/create-course" element={<CourseActions />} />
+        <Route path="/edit-course/:id" element={<CourseActions />} />
       </Routes>
     </Router>
   );

@@ -3,7 +3,7 @@
 module Api
   module V1
     class CoursesController < ApplicationController
-      before_action :set_course, only: %i[update destroy]
+      before_action :set_course, only: %i[show update destroy]
 
       def index
         @courses = Course.all
@@ -16,6 +16,14 @@ module Api
           render json: @course.as_json.merge!({ message: 'Course created successfully' }), status: 200
         else
           render json: { message: 'Course was not created' }, status: 400
+        end
+      end
+
+      def show
+        if @course
+          render json: @course, status: 200
+        else
+          render json: { message: 'Course not found' }, status: 400
         end
       end
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       # courses
       get 'courses/index', to: 'courses#index'
       post 'courses/create', to: 'courses#create'
+      get 'courses/show/:id', to: 'courses#show'
       put 'courses/update/:id', to: 'courses#update'
       delete 'courses/destroy/:id', to: 'courses#destroy'
 

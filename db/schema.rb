@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2022_10_05_045415) do
 
   create_table "course_grades", force: :cascade do |t|
     t.bigint "course_id", null: false
+    t.bigint "student_id", null: false
     t.float "q1", default: 0.0
     t.float "q2", default: 0.0
     t.float "q3", default: 0.0
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(version: 2022_10_05_045415) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_id"], name: "index_course_grades_on_course_id"
+    t.index ["student_id"], name: "index_course_grades_on_student_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_10_05_045415) do
   end
 
   add_foreign_key "course_grades", "courses"
+  add_foreign_key "course_grades", "students"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "students"
 end

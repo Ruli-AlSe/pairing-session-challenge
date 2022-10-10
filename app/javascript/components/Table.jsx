@@ -20,6 +20,7 @@ export default function Table({
 
   function handleClick(event, id, model) {
     event.preventDefault();
+    window.scrollTo(0, 0);
     window.addEventListener("scroll", disableScroll);
     setRowToRemove({ id, model });
     setShowPopup(true);
