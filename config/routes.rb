@@ -19,9 +19,10 @@ Rails.application.routes.draw do
       get 'students/enrollments/:id', to: 'students#enrollments'
 
       # course grades
-      get 'course_grades/index', to: 'course_grades#index'
-      get 'course_grades/create', to: 'course_grades#create'
-      get 'course_grades/update/:id', to: 'course_grades#update'
+      get 'course_grades/show/:student_id/:course_id', to: 'course_grades#show'
+      post 'course_grades/create', to: 'course_grades#create'
+      put 'course_grades/update/:student_id/:course_id', to: 'course_grades#update'
+      delete 'course_grades/destroy/:student_id/:course_id', to: 'course_grades#destroy'
     end
   end
   
