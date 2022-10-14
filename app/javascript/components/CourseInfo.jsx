@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "../../assets/stylesheets/components/model-info.module.css";
 
-export default function CourseInfo({ data }) {
+function CourseInfo({ data }) {
   return (
     <div className={`row ${styles.flex_row}`}>
       <div className={styles.model_info}>
@@ -20,3 +21,12 @@ export default function CourseInfo({ data }) {
     </div>
   );
 }
+
+CourseInfo.prototypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    teacher_name: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default CourseInfo;

@@ -6,6 +6,7 @@ import Table from "../components/Table";
 import Message from "../components/Message";
 import StudentInfo from "../components/StudentInfo";
 import CourseInfo from "../components/CourseInfo";
+import PropTypes from "prop-types";
 import {
   STUDENT_ENROLLMENTS,
   STUDENT_SHOW,
@@ -13,7 +14,7 @@ import {
   COURSE_SHOW,
 } from "../utils/Constants";
 
-export default function ViewEnrollments({ model }) {
+function ViewEnrollments({ model }) {
   let { id } = useParams();
   const enrollmentsUrl =
     model == "student" ? STUDENT_ENROLLMENTS + id : COURSE_ENROLLMENTS + id;
@@ -61,3 +62,9 @@ export default function ViewEnrollments({ model }) {
     </>
   );
 }
+
+ViewEnrollments.prototypes = {
+  model: PropTypes.string.isRequired,
+};
+
+export default ViewEnrollments;

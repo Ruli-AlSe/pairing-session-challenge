@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import styles from "../../assets/stylesheets/components/table.module.css";
 
-export default function Table({
+function Table({
   title,
   info,
   model,
@@ -97,3 +98,14 @@ export default function Table({
     </div>
   );
 }
+
+Table.prototypes = {
+  title: PropTypes.string.isRequired,
+  info: PropTypes.arrayOf(PropTypes.object).isRequired,
+  model: PropTypes.string.isRequired,
+  setRowToRemove: PropTypes.func.isRequired,
+  setShowPopup: PropTypes.func.isRequired,
+  disableScroll: PropTypes.func.isRequired,
+};
+
+export default Table;

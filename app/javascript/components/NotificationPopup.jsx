@@ -1,10 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "../../assets/stylesheets/components/notification-popup.module.css";
 
-export default function NotificationPopup({
-  handleAcceptClick,
-  handleCancelClick,
-}) {
+function NotificationPopup({ handleAcceptClick, handleCancelClick }) {
   return (
     <div className={styles.background_popup}>
       <div className={styles.popup}>
@@ -29,3 +27,10 @@ export default function NotificationPopup({
     </div>
   );
 }
+
+NotificationPopup.prototypes = {
+  handleAcceptClick: PropTypes.func.isRequired,
+  handleCancelClick: PropTypes.func.isRequired,
+};
+
+export default NotificationPopup;
