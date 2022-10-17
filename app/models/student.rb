@@ -14,7 +14,18 @@ class Student < ApplicationRecord
 
   def courses
     enrollments.map do |elem|
-      { id: elem.course_id, course_name: elem.course.name, teacher_name: elem.course.teacher_name }
+      grades = course_grades.where(course_id: elem.course_id).first
+      { 
+        id: elem.course_id, 
+        course_name: elem.course.name, 
+        teacher_name: elem.course.teacher_name,
+        q1: grades.q1,
+        q2: grades.q2,
+        q3: grades.q3,
+        q4: grades.q4,
+        average: grades.average,
+        status: grades.status
+      }
     end
   end
 end

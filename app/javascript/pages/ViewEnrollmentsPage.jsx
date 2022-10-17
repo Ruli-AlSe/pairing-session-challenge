@@ -42,7 +42,9 @@ function ViewEnrollments({ model }) {
           )}
           {enrollments.data.length > 0 ? (
             <Table
-              title="Courses enrolled"
+              title={
+                model === "student" ? "Courses enrolled" : "Students enrolled"
+              }
               info={enrollments.data}
               model="course"
             />

@@ -15,11 +15,9 @@ import {
 
 export default function Home() {
   const students = useGetFetch({ url: STUDENTS_INDEX });
-  const [studentsData, setStudentsData] = useState(students);
   const courses = useGetFetch({ url: COURSES_INDEX });
   const [isLoading, setIsLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
-  const navigate = useNavigate();
   const [rowToRemove, setRowToRemove] = useState({ id: null, model: null });
   const [result, setResult] = useState({
     data: [],
@@ -75,6 +73,7 @@ export default function Home() {
 
   useEffect(() => {
     setMessage({ success: result.response.ok, content: result.data.message });
+
     if (!students.isLoading && !courses.isLoading && !result.isLoading) {
       setIsLoading(false);
     }
@@ -108,6 +107,7 @@ export default function Home() {
             setRowToRemove={setRowToRemove}
             setShowPopup={setShowPopup}
             disableScroll={disableScroll}
+            withEditInfo={true}
           />
           <Table
             title="Courses table"
@@ -116,6 +116,7 @@ export default function Home() {
             setRowToRemove={setRowToRemove}
             setShowPopup={setShowPopup}
             disableScroll={disableScroll}
+            withEditInfo={true}
           />
         </div>
       )}
